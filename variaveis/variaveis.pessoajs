@@ -1,0 +1,29 @@
+
+// var, let, const
+// valores constantes e variaveis 
+// operadores: +, -, *, /, %
+
+let nome = "Simas"              //string
+let sobrenome = "turbo"         //string
+const cpf = "998.888.999-92"    //string
+const rg = "10010"              //string
+let idade = 17
+let nota = 7.5 + 2.5            //number
+let solteiro =true              //boolean
+
+console.log(nome)
+
+console.log(sobrenome)
+
+console.log(cpf)
+
+console.log(rg)
+
+console.log(idade)
+
+console.log(nota)
+
+console.log(solteiro)
+
+console.log(typeof nome)
+
