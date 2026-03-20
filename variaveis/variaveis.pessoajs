@@ -3,8 +3,8 @@
 // valores constantes e variaveis 
 // operadores: +, -, *, /, %
 
-let nome = "Simas"              //string
-let sobrenome = "turbo"         //string
+let nome = "joao"              //string
+let sobrenome = "paulo"         //string
 const cpf = "998.888.999-92"    //string
 const rg = "10010"              //string
 let idade = 17
@@ -21,7 +21,7 @@ console.log(rg)
 
 console.log(idade)
 
-console.log(nota)
+console.log(nota)"
 
 console.log(solteiro)
 

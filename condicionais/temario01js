@@ -1,0 +1,13 @@
+// ternario é uma forma simplica deescrever
+// if-else
+
+    let solteiro = true
+
+    if (solteiro == true){
+        Cconsole.log('ta na pista!')
+    } else {
+        console.log('se liga, tenho compromisso!')
+    }
+    // expresão terminia
+    const estadocivil = solteiro == true ? 'ta na pista' : 'se liga, tenho compromisso!'
+    console.log (estadocivil)

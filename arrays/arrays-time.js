@@ -4,9 +4,12 @@
 // Possuem funções nativas (prontas)
 // Podem ser interados e checados
 
-const time = ['maria' , 'clara' , 'myria']
-  //índices     0        1         2
+const time= ['maria' , 'clara' , 'myria' , true, , 56]
+  //índices     0         1         2
 
-console,log(time)
-console.log(time[1])
-console.log(time[32])
+  time[55] // undefined
+
+  for (const jogador of time) {
+      console.log("jogador: " +jogador)
+  }
+  
