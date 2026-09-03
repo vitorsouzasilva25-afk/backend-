@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>QuizToon - Quiz de Desenhos</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f1f3f6;
+            color: #202124;
+        }
+
+        /* =========================
+           CABEÇALHO
+        ========================= */
+
+        header {
+            background: white;
+            border-bottom: 1px solid #ddd;
+            padding: 18px 8%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #673ab7;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #555;
+            font-weight: bold;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #673ab7;
+        }
+
+
+        /* =========================
+           CONTEÚDO
+        ========================= */
+
+        main {
+            width: 100%;
+            max-width: 800px;
+            margin: 35px auto;
+            padding: 0 15px;
+        }
+
+
+        /* =========================
+           TOPO
+        ========================= */
+
+        .form-header {
+            background: white;
+
+            border-radius: 10px;
+
+            border-top: 10px solid #673ab7;
+
+            padding: 30px;
+
+            margin-bottom: 18px;
+
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+        }
+
+        .form-header h1 {
+            margin: 0 0 15px;
+            font-size: 34px;
+        }
+
+        .form-header p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .required-info {
+            color: #d93025;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+
+        /* =========================
+           PERGUNTAS
+        ========================= */
+
+        .question-card {
+            background: white;
+
+            border-radius: 10px;
+
+            padding: 25px 30px;
+
+            margin-bottom: 18px;
+
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+        }
+
+        .question-card h2 {
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 1.5;
+            margin: 0 0 20px;
+        }
+
+        .question-number {
+            color: #673ab7;
+            font-weight: bold;
+        }
+
+
+        /* =========================
+           ALTERNATIVAS
+        ========================= */
+
+        .option {
+            display: block;
+
+            padding: 12px 10px;
+
+            margin: 5px 0;
+
+            border-radius: 7px;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .option:hover {
+            background: #f3efff;
+        }
+
+        .option input {
+            margin-right: 12px;
+            accent-color: #673ab7;
+            cursor: pointer;
+        }
+
+
+        /* =========================
+           ÁREA DOS BOTÕES
+        ========================= */
+
+        .submit-area {
+            background: white;
+
+            padding: 25px 30px;
+
+            border-radius: 10px;
+
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+
+            margin-bottom: 25px;
+        }
+
+        .submit-button {
+            background: #673ab7;
+
+            color: white;
+
+            border: none;
+
+            padding: 14px 28px;
+
+            border-radius: 6px;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .submit-button:hover {
+            background: #512da8;
+            transform: translateY(-1px);
+        }
+
+        .clear-button {
+            border: none;
+
+            background: transparent;
+
+            color: #673ab7;
+
+            font-weight: bold;
+
+            margin-left: 20px;
+
+            cursor: pointer;
+        }
+
+        .clear-button:hover {
+            color: #512da8;
+        }
+
+
+        /* =========================
+           RESULTADO
+        ========================= */
+
+        #resultado {
+            display: none;
+
+            background: white;
+
+            border-radius: 10px;
+
+            padding: 35px;
+
+            margin-bottom: 30px;
+
+            border-left: 7px solid #34a853;
+
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+            text-align: center;
+        }
+
+        #resultado h2 {
+            margin-top: 0;
+            font-size: 28px;
+        }
+
+        .nota {
+            font-size: 55px;
+
+            font-weight: bold;
+
+            color: #673ab7;
+
+            margin: 15px 0;
+        }
+
+        #mensagem {
+            color: #555;
+            font-size: 17px;
+        }
+
+        .retry-button {
+            background: #673ab7;
+
+            border: none;
+
+            color: white;
+
+            padding: 13px 25px;
+
+            border-radius: 6px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin-top: 15px;
+        }
+
+        .retry-button:hover {
+            background: #512da8;
+        }
+
+
+        /* =========================
+           RODAPÉ
+        ========================= */
+
+        footer {
+            background: #202124;
+
+            color: #aaa;
+
+            text-align: center;
+
+            padding: 22px;
+
+            margin-top: 40px;
+        }
+
+
+        /* =========================
+           CELULAR
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+                padding: 18px;
+            }
+
+            nav {
+                gap: 15px;
+            }
+
+            main {
+                margin-top: 20px;
+            }
+
+            .form-header,
+            .question-card,
+            .submit-area {
+                padding: 22px;
+            }
+
+            .form-header h1 {
+                font-size: 27px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         CABEÇALHO
+    ========================= -->
+
+    <header>
+
+        <div class="logo">
+            🎬 Quiz<span>Toon</span>
+        </div>
+
+        <nav>
+
+            <a href="index.html" class="active">
+                Quiz
+            </a>
+
+            <a href="sobre.html">
+                Sobre
+            </a>
+
+            <a href="404.html">
+                404
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =========================
+         FORMULÁRIO
+    ========================= -->
+
+    <main>
+
+        <form id="quizForm">
+
+
+            <!-- =========================
+                 APRESENTAÇÃO
+            ========================= -->
+
+            <section class="form-header">
+
+                <h1>
+                    🎬 QuizToon
+                </h1>
+
+                <p>
+                    <strong>
+                        Quiz de Desenhos Animados
+                    </strong>
+                </p>
+
+                <p>
+                    Teste seus conhecimentos sobre alguns
+                    dos desenhos animados mais conhecidos.
+                    Escolha uma alternativa em cada questão.
+                </p>
+
+                <p>
+                    O quiz possui <strong>23 perguntas</strong>.
+                    No final, clique em
+                    <strong>Enviar respostas</strong>
+                    para descobrir sua pontuação.
+                </p>
+
+                <div class="required-info">
+                    * Obrigatório
+                </div>
+
+            </section>
+
+
+            <!-- =========================
+                 PERGUNTA 1
+            ========================= -->
+
+            <section class="question-card">
+
+                <h2>
+                    <span class="question-number">1.</span>
+                    Qual é o nome do cachorro do desenho Scooby-Doo?
+                </h2>
+
+                <label class="option">
+                    <input type="radio" name="q1" value="0">
+                    Pluto
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q1" value="1">
+                    Scooby-Doo
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q1" value="2">
+                    Snoopy
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q1" value="3">
+                    Bolt
+                </label>
+
+            </section>
+
+
+            <!-- PERGUNTA 2 -->
+
+            <section class="question-card">
+
+                <h2>
+                    <span class="question-number">2.</span>
+                    Quem vive em um abacaxi no fundo do mar?
+                </h2>
+
+                <label class="option">
+                    <input type="radio" name="q2" value="0">
+                    Patrick
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q2" value="1">
+                    Bob Esponja
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q2" value="2">
+                    Lula Molusco
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q2" value="3">
+                    Seu Siriguejo
+                </label>
+
+            </section>
+
+
+            <!-- PERGUNTA 3 -->
+
+            <section class="question-card">
+
+                <h2>
+                    <span class="question-number">3.</span>
+                    Qual é o nome do irmão do Mario?
+                </h2>
+
+                <label class="option">
+                    <input type="radio" name="q3" value="0">
+                    Wario
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q3" value="1">
+                    Luigi
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q3" value="2">
+                    Toad
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q3" value="3">
+                    Yoshi
+                </label>
+
+            </section>
+
+
+            <!-- PERGUNTA 4 -->
+
+            <section class="question-card">
+
+                <h2>
+                    <span class="question-number">4.</span>
+                    Qual é o nome do leão protagonista de O Rei Leão?
+                </h2>
+
+                <label class="option">
+                    <input type="radio" name="q4" value="0">
+                    Mufasa
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q4" value="1">
+                    Scar
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q4" value="2">
+                    Simba
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q4" value="3">
+                    Timon
+                </label>
+
+            </section>
+
+
+            <!-- PERGUNTA 5 -->
+
+            <section class="question-card">
+
+                <h2>
+                    <span class="question-number">5.</span>
+                    Qual personagem é um coelho famoso da Warner?
+                </h2>
+
+                <label class="option">
+                    <input type="radio" name="q5" value="0">
+                    Mickey
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q5" value="1">
+                    Donald
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q5" value="2">
+                    Tom
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q5" value="3">
+                    Pernalonga
+                </label>
+
+            </section>
+
+
+            <!-- PERGUNTA 6 -->
+
+            <section class="question-card">
+
+                <h2>
+                    <span class="question-number">6.</span>
+                    Qual é o nome do rato mais famoso da Disney?
+                </h2>
+
+                <label class="option">
+                    <input type="radio" name="q6" value="0">
+                    Jerry
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q6" value="1">
+                    Mickey
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q6" value="2">
+                    Remy
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q6" value="3">
+                    Stuart
+                </label>
+
+            </section>
+
+
+            <!-- PERGUNTA 7 -->
+
+            <section class="question-card">
+
+                <h2>
+                    <span class="question-number">7.</span>
+                    Quem é o melhor amigo do Bob Esponja?
+                </h2>
+
+                <label class="option">
+                    <input type="radio" name="q7" value="0">
+                    Lula Molusco
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q7" value="1">
+                    Patrick
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q7" value="2">
+                    Plankton
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q7" value="3">
+                    Gary
+                </label>
+
+            </section>
+
+
+            <!-- PERGUNTA 8 -->
+
+            <section class="question-card">
+
+                <h2>
+                    <span class="question-number">8.</span>
+                    Qual é o nome do gato que tenta pegar o Jerry?
+                </h2>
+
+                <label class="option">
+                    <input type="radio" name="q8" value="0">
+                    Tom
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q8" value="1">
+                    Garfield
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q8" value="2">
+                    Felix
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q8" value="3">
+                    Sylvester
+                </label>
+
+            </section>
+
+
+            <!-- PERGUNTA 9 -->
+
+            <section class="question-card">
+
+                <h2>
+                    <span class="question-number">9.</span>
+                    Qual personagem é conhecido por gostar muito de lasanha?
+                </h2>
+
+                <label class="option">
+                    <input type="radio" name="q9" value="0">
+                    Garfield
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q9" value="1">
+                    Pica-Pau
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q9" value="2">
+                    Patolino
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q9" value="3">
+                    Popeye
+                </label>
+
+            </section>
+
+
+            <!-- PERGUNTA 10 -->
+
+            <section class="question-card">
+
+                <h2>
+                    <span class="question-number">10.</span>
+                    Qual é o nome do garoto que usa o Omnitrix?
+                </h2>
+
+                <label class="option">
+                    <input type="radio" name="q10" value="0">
+                    Ben Tennyson
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q10" value="1">
+                    Ash Ketchum
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q10" value="2">
+                    Finn
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q10" value="3">
+                    Gumball
+                </label>
+
+            </section>
+
+
+            <!-- PERGUNTA 11 -->
+
+            <section class="question-card">
+
+                <h2>
+                    <span class="question-number">11.</span>
+                    Qual é o nome do amigo do Snoopy?
+                </h2>
+
+                <label class="option">
+                    <input type="radio" name="q11" value="0">
+                    Woodstock
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q11" value="1">
+                    Piu-Piu
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q11" value="2">
+                    Jerry
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q11" value="3">
+                    Patolino
+                </label>
+
+            </section>
+
+
+            <!-- PERGUNTA 12 -->
+
+            <section class="question-card">
+
+                <h2>
+                    <span class="question-number">12.</span>
+                    Qual é o Pokémon mais famoso?
+                </h2>
+
+                <label class="option">
+                    <input type="radio" name="q12" value="0">
+                    Charmander
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q12" value="1">
+                    Pikachu
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q12" value="2">
+                    Squirtle
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q12" value="3">
+                    Bulbasaur
+                </label>
+
+            </section>
+
+
+            <!-- PERGUNTA 13 -->
+
+            <section class="question-card">
+
+                <h2>
+                    <span class="question-number">13.</span>
+                    Qual é o nome do parceiro Pokémon do Ash?
+                </h2>
+
+                <label class="option">
+                    <input type="radio" name="q13" value="0">
+                    Charizard
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q13" value="1">
+                    Pikachu
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q13" value="2">
+                    Mewtwo
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q13" value="3">
+                    Snorlax
+                </label>
+
+            </section>
+
+
+            <!-- PERGUNTA 14 -->
+
+            <section class="question-card">
+
+                <h2>
+                    <span class="question-number">14.</span>
+                    Qual personagem usa uma máscara verde e possui poderes malucos?
+                </h2>
+
+                <label class="option">
+                    <input type="radio" name="q14" value="0">
+                    Batman
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q14" value="1">
+                    O Máskara
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q14" value="2">
+                    Superman
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q14" value="3">
+                    Flash
+                </label>
+
+            </section>
+
+
+            <!-- PERGUNTA 15 -->
+
+            <section class="question-card">
+
+                <h2>
+                    <span class="question-number">15.</span>
+                    Qual é o nome do pai da família Simpson?
+                </h2>
+
+                <label class="option">
+                    <input type="radio" name="q15" value="0">
+                    Bart
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q15" value="1">
+                    Homer
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q15" value="2">
+                    Moe
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q15" value="3">
+                    Ned
+                </label>
+
+            </section>
+
+
+            <!-- PERGUNTA 16 -->
+
+            <section class="question-card">
+
+                <h2>
+                    <span class="question-number">16.</span>
+                    Qual é o nome do filho de Homer Simpson?
+                </h2>
+
+                <label class="option">
+                    <input type="radio" name="q16" value="0">
+                    Bart
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q16" value="1">
+                    Milhouse
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q16" value="2">
+                    Nelson
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q16" value="3">
+                    Ralph
+                </label>
+
+            </section>
+
+
+            <!-- PERGUNTA 17 -->
+
+            <section class="question-card">
+
+                <h2>
+                    <span class="question-number">17.</span>
+                    Em qual desenho aparecem Finn e Jake?
+                </h2>
+
+                <label class="option">
+                    <input type="radio" name="q17" value="0">
+                    Ben 10
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q17" value="1">
+                    Hora de Aventura
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q17" value="2">
+                    Gumball
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q17" value="3">
+                    Apenas um Show
+                </label>
+
+            </section>
+
+
+            <!-- PERGUNTA 18 -->
+
+            <section class="question-card">
+
+                <h2>
+                    <span class="question-number">18.</span>
+                    Qual personagem é conhecido por gostar muito de mel?
+                </h2>
+
+                <label class="option">
+                    <input type="radio" name="q18" value="0">
+                    Ursinho Pooh
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q18" value="1">
+                    Panda
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q18" value="2">
+                    Baloo
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q18" value="3">
+                    Paddington
+                </label>
+
+            </section>
+
+
+            <!-- PERGUNTA 19 -->
+
+            <section class="question-card">
+
+                <h2>
+                    <span class="question-number">19.</span>
+                    Qual personagem é conhecido como o deus do trovão?
+                </h2>
+
+                <label class="option">
+                    <input type="radio" name="q19" value="0">
+                    Hulk
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q19" value="1">
+                    Batman
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q19" value="2">
+                    Thor
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q19" value="3">
+                    Flash
+                </label>
+
+            </section>
+
+
+            <!-- PERGUNTA 20 -->
+
+            <section class="question-card">
+
+                <h2>
+                    <span class="question-number">20.</span>
+                    Qual é o nome do pato famoso da Disney?
+                </h2>
+
+                <label class="option">
+                    <input type="radio" name="q20" value="0">
+                    Donald
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q20" value="1">
+                    Patolino
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q20" value="2">
+                    Daffy
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q20" value="3">
+                    Howard
+                </label>
+
+            </section>
+
+
+            <!-- PERGUNTA 21 -->
+
+            <section class="question-card">
+
+                <h2>
+                    <span class="question-number">21.</span>
+                    Qual personagem é um gato azul em O Incrível Mundo de Gumball?
+                </h2>
+
+                <label class="option">
+                    <input type="radio" name="q21" value="0">
+                    Darwin
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q21" value="1">
+                    Gumball
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q21" value="2">
+                    Richard
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q21" value="3">
+                    Tobias
+                </label>
+
+            </section>
+
+
+            <!-- PERGUNTA 22 -->
+
+            <section class="question-card">
+
+                <h2>
+                    <span class="question-number">22.</span>
+                    Qual passarinho sempre foge do gato Sylvester?
+                </h2>
+
+                <label class="option">
+                    <input type="radio" name="q22" value="0">
+                    Piu-Piu
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q22" value="1">
+                    Woodstock
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q22" value="2">
+                    Donald
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q22" value="3">
+                    Pica-Pau
+                </label>
+
+            </section>
+
+
+            <!-- PERGUNTA 23 -->
+
+            <section class="question-card">
+
+                <h2>
+                    <span class="question-number">23.</span>
+                    Qual personagem é famoso pela sua risada e pelo seu topete vermelho?
+                </h2>
+
+                <label class="option">
+                    <input type="radio" name="q23" value="0">
+                    Tom
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q23" value="1">
+                    Pica-Pau
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q23" value="2">
+                    Jerry
+                </label>
+
+                <label class="option">
+                    <input type="radio" name="q23" value="3">
+                    Pernalonga
+                </label>
+
+            </section>
+
+
+            <!-- =========================
+                 BOTÕES
+            ========================= -->
+
+            <section class="submit-area">
+
+                <button
+                    type="button"
+                    class="submit-button"
+                    onclick="corrigirQuiz()">
+
+                    Enviar respostas
+
+                </button>
+
+                <button
+                    type="reset"
+                    class="clear-button"
+                    onclick="limparResultado()">
+
+                    Limpar formulário
+
+                </button>
+
+            </section>
+
+        </form>
+
+
+        <!-- =========================
+             RESULTADO
+        ========================= -->
+
+        <section id="resultado">
+
+            <h2>
+                🎉 Quiz enviado!
+            </h2>
+
+            <div class="nota" id="nota">
+                0/23
+            </div>
+
+            <p id="mensagem">
+                Resultado
+            </p>
+
+            <button
+                class="retry-button"
+                onclick="refazerQuiz()">
+
+                🔄 Refazer quiz
+
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         RODAPÉ
+    ========================= -->
+
+    <footer>
+
+        © 2026 QuizToon — Projeto acadêmico
+
+    </footer>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        const respostasCorretas = [
+
+            1,  // 1 - Scooby-Doo
+            1,  // 2 - Bob Esponja
+            1,  // 3 - Luigi
+            2,  // 4 - Simba
+            3,  // 5 - Pernalonga
+            1,  // 6 - Mickey
+            1,  // 7 - Patrick
+            0,  // 8 - Tom
+            0,  // 9 - Garfield
+            0,  // 10 - Ben Tennyson
+            0,  // 11 - Woodstock
+            1,  // 12 - Pikachu
+            1,  // 13 - Pikachu
+            1,  // 14 - O Máskara
+            1,  // 15 - Homer
+            0,  // 16 - Bart
+            1,  // 17 - Hora de Aventura
+            0,  // 18 - Ursinho Pooh
+            2,  // 19 - Thor
+            0,  // 20 - Donald
+            1,  // 21 - Gumball
+            0,  // 22 - Piu-Piu
+            1   // 23 - Pica-Pau
+
+        ];
+
+
+        function corrigirQuiz() {
+
+            let pontos = 0;
+            let respondidas = 0;
+
+
+            for (let i = 1; i <= 23; i++) {
+
+                const resposta =
+                    document.querySelector(
+                        `input[name="q${i}"]:checked`
+                    );
+
+
+                if (resposta) {
+
+                    respondidas++;
+
+                    if (
+                        Number(resposta.value) ===
+                        respostasCorretas[i - 1]
+                    ) {
+
+                        pontos++;
+
+                    }
+
+                }
+
+            }
+
+
+            if (respondidas < 23) {
+
+                const confirmar = confirm(
+                    `Você respondeu ${respondidas} de 23 perguntas.\n\nDeseja enviar mesmo assim?`
+                );
+
+                if (!confirmar) {
+                    return;
+                }
+
+            }
+
+
+            document.getElementById("resultado").style.display =
+                "block";
+
+
+            document.getElementById("nota").textContent =
+                `${pontos}/23`;
+
+
+            const mensagem =
+                document.getElementById("mensagem");
+
+
+            if (pontos === 23) {
+
+                mensagem.textContent =
+                    "🏆 Perfeito! Você acertou todas as perguntas!";
+
+            }
+
+            else if (pontos >= 18) {
+
+                mensagem.textContent =
+                    "🎉 Excelente! Você conhece muito de desenhos animados!";
+
+            }
+
+            else if (pontos >= 12) {
+
+                mensagem.textContent =
+                    "😎 Muito bom! Você conhece bastante sobre desenhos!";
+
+            }
+
+            else if (pontos >= 7) {
+
+                mensagem.textContent =
+                    "📺 Bom trabalho! Mas você pode melhorar.";
+
+            }
+
+            else {
+
+                mensagem.textContent =
+                    "🍿 Parece que está na hora de rever alguns desenhos!";
+
+            }
+
+
+            document.getElementById("resultado")
+                .scrollIntoView({
+                    behavior: "smooth"
+                });
+
+        }
+
+
+        function limparResultado() {
+
+            document.getElementById("resultado").style.display =
+                "none";
+
+        }
+
+
+        function refazerQuiz() {
+
+            document.getElementById("quizForm").reset();
+
+            document.getElementById("resultado").style.display =
+                "none";
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

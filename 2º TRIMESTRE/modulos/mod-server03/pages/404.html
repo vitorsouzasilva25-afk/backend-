@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>404 - Página não encontrada</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f1f3f6;
+            color: #202124;
+        }
+
+        header {
+            background: white;
+            border-bottom: 1px solid #ddd;
+            padding: 18px 8%;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #673ab7;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #555;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #673ab7;
+        }
+
+        main {
+            min-height: 70vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            padding: 30px;
+        }
+
+        .error-card {
+            background: white;
+
+            max-width: 650px;
+
+            text-align: center;
+
+            padding: 50px 35px;
+
+            border-radius: 15px;
+
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+
+            border-top: 10px solid #673ab7;
+        }
+
+        .error-number {
+            font-size: 90px;
+            font-weight: bold;
+            color: #673ab7;
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 30px;
+            margin: 10px 0;
+        }
+
+        p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .button {
+            display: inline-block;
+
+            background: #673ab7;
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 14px 28px;
+
+            border-radius: 6px;
+
+            font-weight: bold;
+
+            margin-top: 15px;
+        }
+
+        .button:hover {
+            background: #512da8;
+        }
+
+        footer {
+            background: #202124;
+            color: #aaa;
+            text-align: center;
+            padding: 22px;
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .error-number {
+                font-size: 70px;
+            }
+
+            .error-card {
+                padding: 40px 20px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo">
+            🎬 Quiz<span>Toon</span>
+        </div>
+
+        <nav>
+
+            <a href="index.html">
+                Quiz
+            </a>
+
+            <a href="sobre.html">
+                Sobre
+            </a>
+
+            <a href="404.html">
+                404
+            </a>
+
+        </nav>
+
+    </header>
+
+
+    <main>
+
+        <section class="error-card">
+
+            <p class="error-number">
+                404
+            </p>
+
+            <h1>
+                😵 Página não encontrada
+            </h1>
+
+            <p>
+                Ops! Parece que essa página saiu para
+                assistir desenhos e ainda não voltou.
+            </p>
+
+            <p>
+                Verifique o endereço ou volte para a
+                página principal do QuizToon.
+            </p>
+
+            <a href="index.html" class="button">
+                🏠 Voltar para o Quiz
+            </a>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        © 2026 QuizToon — Projeto acadêmico
+
+    </footer>
+
+</body>
+
+</html>
